@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
 import {
   TrendingUp,
   Shield,
@@ -18,7 +17,8 @@ import {
   Cpu,
   Wallet,
   Activity,
-  Link
+  Link,
+  Smartphone
 } from 'lucide-react';
 
 // --- Custom Hooks ---
@@ -647,7 +647,7 @@ const HowItWorks = () => {
       number: "01",
       title: "Open OKX App",
       desc: "Download and launch the OKX mobile app",
-      image: "/images/okx-app.png",
+      illustration: "app",
       features: [
         "Available on iOS and Android",
         "Quick registration process",
@@ -658,7 +658,7 @@ const HowItWorks = () => {
       number: "02",
       title: "Select Strategy",
       desc: "Browse AI strategies in the marketplace",
-      image: "/images/IMG_9761.PNG",
+      illustration: "strategies",
       features: [
         "View performance metrics",
         "Compare risk profiles",
@@ -669,7 +669,7 @@ const HowItWorks = () => {
       number: "03",
       title: "Subscribe & Start",
       desc: "Activate your chosen strategy instantly",
-      image: "/images/IMG_9762.PNG",
+      illustration: "trading",
       features: [
         "One-tap subscription",
         "Set allocation amount",
@@ -677,6 +677,99 @@ const HowItWorks = () => {
       ]
     }
   ];
+
+  // Illustration component for each step
+  const StepIllustration = ({ type }) => {
+    if (type === 'app') {
+      return (
+        <div className="w-full h-full bg-gradient-to-br from-[#0A0E1A] to-[#131826] flex flex-col items-center justify-center p-8">
+          {/* OKX App Icon */}
+          <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-[#00D9FF] to-[#00D4AA] shadow-2xl shadow-[#00D9FF]/50 flex items-center justify-center mb-6">
+            <Smartphone size={48} className="text-white" />
+          </div>
+          <div className="text-white text-2xl font-bold mb-2">OKX Trading</div>
+          <div className="text-gray-400 text-sm">Get Started</div>
+          {/* Decorative dots */}
+          <div className="flex gap-2 mt-8">
+            <div className="w-2 h-2 rounded-full bg-white/20"></div>
+            <div className="w-2 h-2 rounded-full bg-[#00D9FF]"></div>
+            <div className="w-2 h-2 rounded-full bg-white/20"></div>
+          </div>
+        </div>
+      );
+    }
+
+    if (type === 'strategies') {
+      return (
+        <div className="w-full h-full bg-gradient-to-br from-[#0A0E1A] to-[#131826] flex flex-col p-6 pt-12">
+          {/* Header */}
+          <div className="text-white text-lg font-bold mb-6 px-2">AI Trading Strategies</div>
+
+          {/* Strategy Cards */}
+          <div className="space-y-3 flex-1">
+            {['Alpha Predator', 'Sentinel Guard', 'Quantum Surge'].map((name, idx) => (
+              <div
+                key={idx}
+                className={`p-4 rounded-xl border transition-all ${
+                  idx === 0
+                    ? 'bg-gradient-to-r from-[#00D9FF]/20 to-[#00D4AA]/20 border-[#00D9FF]/50'
+                    : 'bg-white/5 border-white/10'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="text-white font-semibold text-sm">{name}</div>
+                  <div className="text-[#00D4AA] text-xs font-bold">+{45 - idx * 10}%</div>
+                </div>
+                <div className="text-gray-500 text-xs">Risk: {idx === 0 ? 'High' : idx === 1 ? 'Low' : 'Medium'}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    if (type === 'trading') {
+      return (
+        <div className="w-full h-full bg-gradient-to-br from-[#0A0E1A] to-[#131826] flex flex-col p-6 pt-12">
+          {/* Header with status */}
+          <div className="flex items-center justify-between mb-8 px-2">
+            <div className="text-white text-lg font-bold">Alpha Predator</div>
+            <div className="flex items-center gap-2 text-[#00D4AA] text-xs font-semibold">
+              <div className="w-2 h-2 rounded-full bg-[#00D4AA] animate-pulse"></div>
+              Active
+            </div>
+          </div>
+
+          {/* Stats Grid */}
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="bg-white/5 p-4 rounded-xl border border-white/10">
+              <div className="text-gray-500 text-xs mb-1">Today&apos;s Return</div>
+              <div className="text-[#00D4AA] text-xl font-bold">+2.4%</div>
+            </div>
+            <div className="bg-white/5 p-4 rounded-xl border border-white/10">
+              <div className="text-gray-500 text-xs mb-1">Total Trades</div>
+              <div className="text-white text-xl font-bold">847</div>
+            </div>
+          </div>
+
+          {/* Chart */}
+          <div className="flex-1 bg-white/5 rounded-xl border border-white/10 p-4 relative overflow-hidden">
+            <svg className="w-full h-full" viewBox="0 0 200 100" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="chart-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#00D9FF" stopOpacity="0.3" />
+                  <stop offset="100%" stopColor="#00D9FF" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              <path d="M0,80 L40,65 L80,70 L120,45 L160,50 L200,20 L200,100 L0,100 Z" fill="url(#chart-gradient)" />
+              <path d="M0,80 L40,65 L80,70 L120,45 L160,50 L200,20" stroke="#00D9FF" strokeWidth="2" fill="none" />
+              <circle cx="200" cy="20" r="3" fill="#00D4AA" className="animate-pulse" />
+            </svg>
+          </div>
+        </div>
+      );
+    }
+  };
 
   return (
     <section id="how-it-works" className="py-16 md:py-24 bg-[#0A0E1A] relative overflow-hidden">
@@ -757,7 +850,7 @@ const HowItWorks = () => {
                   {/* Notch */}
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-7 bg-black rounded-b-3xl z-10"></div>
 
-                  {/* Screenshot with fade transition */}
+                  {/* Illustration with fade transition */}
                   <div className="relative w-full h-full">
                     {steps.map((step, idx) => (
                       <div
@@ -766,13 +859,7 @@ const HowItWorks = () => {
                           activeStep === idx ? 'opacity-100' : 'opacity-0'
                         }`}
                       >
-                        <Image
-                          src={step.image}
-                          alt={step.title}
-                          fill
-                          className="object-cover object-top"
-                          unoptimized
-                        />
+                        <StepIllustration type={step.illustration} />
                       </div>
                     ))}
                   </div>
