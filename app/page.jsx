@@ -640,92 +640,170 @@ const Performance = () => {
 };
 
 const HowItWorks = () => {
+  const [activeStep, setActiveStep] = useState(0);
+
   const steps = [
     {
       number: "01",
       title: "Open OKX App",
-      desc: "Download and launch the OKX mobile app on your device.",
-      image: "/images/okx-app.png"
+      desc: "Download and launch the OKX mobile app",
+      image: "/images/okx-app.png",
+      features: [
+        "Available on iOS and Android",
+        "Quick registration process",
+        "Secure authentication"
+      ]
     },
     {
       number: "02",
       title: "Select Strategy",
-      desc: "Browse the strategy marketplace and choose one that fits your risk appetite.",
-      image: "/images/IMG_9761.PNG"
+      desc: "Browse AI strategies in the marketplace",
+      image: "/images/IMG_9761.PNG",
+      features: [
+        "View performance metrics",
+        "Compare risk profiles",
+        "Read strategy details"
+      ]
     },
     {
       number: "03",
-      title: "Subscribe",
-      desc: "Tap subscribe, allocate your funds, and start automated trading instantly.",
-      image: "/images/IMG_9762.PNG"
+      title: "Subscribe & Start",
+      desc: "Activate your chosen strategy instantly",
+      image: "/images/IMG_9762.PNG",
+      features: [
+        "One-tap subscription",
+        "Set allocation amount",
+        "Auto-trading begins 24/7"
+      ]
     }
   ];
 
   return (
-    <section id="how-it-works" className="py-12 md:py-20 bg-[#0D1220] relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(0,217,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,217,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
+    <section id="how-it-works" className="py-16 md:py-24 bg-[#0A0E1A] relative overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#00D9FF]/5 via-transparent to-[#00D4AA]/5"></div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="text-center mb-10 md:mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight">
-            Start in 3 Minutes
+        {/* Section Header */}
+        <div className="mb-12 md:mb-16">
+          <div className="inline-block px-4 py-2 bg-[#00D9FF]/10 border border-[#00D9FF]/30 rounded-full mb-6">
+            <span className="text-[#00D9FF] text-sm font-semibold uppercase tracking-wider">How It Works</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            Start Trading in{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D9FF] to-[#00D4AA]">
+              3 Minutes
+            </span>
           </h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-[#00D9FF] to-[#00D4AA] mb-4 mx-auto"></div>
-          <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto">
-            Three simple steps to automated trading. No coding required.
+          <p className="text-gray-400 text-lg md:text-xl max-w-2xl leading-relaxed">
+            No coding required. No complex setup. Just connect your account, choose a strategy, and let AI handle the rest.
           </p>
         </div>
 
-        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-6 md:gap-8">
-          {steps.map((step, idx) => (
-            <div key={idx} className="relative group">
-              {/* Card */}
-              <div className="bg-[#131826] rounded-2xl border border-white/10 overflow-hidden hover:border-[#00D9FF]/30 transition-all duration-300 h-full">
-                {/* Phone Screenshot */}
-                <div className="relative aspect-[9/19.5] bg-black overflow-hidden">
-                  {/* Actual Screenshot */}
-                  <div className="w-full h-full relative">
-                    <Image
-                      src={step.image}
-                      alt={step.title}
-                      fill
-                      className="object-cover object-top"
-                      unoptimized
-                    />
-                  </div>
-
-                  {/* Step badge */}
-                  <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-gradient-to-br from-[#00D9FF] to-[#00D4AA] flex items-center justify-center text-white font-bold text-sm shadow-lg">
+        {/* Main Content */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left Side - Steps */}
+          <div className="space-y-6">
+            {steps.map((step, idx) => (
+              <div
+                key={idx}
+                onClick={() => setActiveStep(idx)}
+                className={`group cursor-pointer p-6 rounded-2xl border transition-all duration-300 ${
+                  activeStep === idx
+                    ? 'bg-gradient-to-r from-[#00D9FF]/10 to-[#00D4AA]/10 border-[#00D9FF]/50'
+                    : 'bg-[#131826] border-white/5 hover:border-white/20'
+                }`}
+              >
+                <div className="flex items-start gap-4">
+                  {/* Step Number */}
+                  <div className={`flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg transition-all duration-300 ${
+                    activeStep === idx
+                      ? 'bg-gradient-to-br from-[#00D9FF] to-[#00D4AA] text-white shadow-lg shadow-[#00D9FF]/30'
+                      : 'bg-white/5 text-gray-500 group-hover:bg-white/10'
+                  }`}>
                     {step.number}
                   </div>
-                </div>
 
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">
-                    {step.desc}
-                  </p>
+                  <div className="flex-1">
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
+                      {step.title}
+                    </h3>
+                    <p className="text-gray-400 mb-4">
+                      {step.desc}
+                    </p>
+
+                    {/* Features List */}
+                    <ul className="space-y-2">
+                      {step.features.map((feature, fIdx) => (
+                        <li key={fIdx} className="flex items-center gap-2 text-sm text-gray-400">
+                          <CheckCircle size={16} className={activeStep === idx ? 'text-[#00D9FF]' : 'text-gray-600'} />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
+            ))}
+          </div>
 
-              {/* Connector arrow (desktop only) */}
-              {idx < steps.length - 1 && (
-                <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
-                  <ArrowRight size={24} className="text-[#00D9FF]" />
+          {/* Right Side - Phone Mockup */}
+          <div className="relative flex justify-center lg:justify-end">
+            <div className="relative">
+              {/* Phone Frame */}
+              <div className="relative w-[320px] md:w-[380px] aspect-[9/19.5] bg-gradient-to-br from-[#2A2F3E] to-[#1A1F2E] rounded-[3rem] p-3 shadow-2xl">
+                {/* Screen */}
+                <div className="w-full h-full bg-black rounded-[2.5rem] overflow-hidden relative">
+                  {/* Notch */}
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-7 bg-black rounded-b-3xl z-10"></div>
+
+                  {/* Screenshot with fade transition */}
+                  <div className="relative w-full h-full">
+                    {steps.map((step, idx) => (
+                      <div
+                        key={idx}
+                        className={`absolute inset-0 transition-opacity duration-500 ${
+                          activeStep === idx ? 'opacity-100' : 'opacity-0'
+                        }`}
+                      >
+                        <Image
+                          src={step.image}
+                          alt={step.title}
+                          fill
+                          className="object-cover object-top"
+                          unoptimized
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              )}
+
+                {/* Glow effect */}
+                <div className="absolute inset-0 rounded-[3rem] bg-gradient-to-br from-[#00D9FF]/20 to-[#00D4AA]/20 blur-2xl -z-10"></div>
+              </div>
+
+              {/* Step Indicator Dots */}
+              <div className="flex justify-center gap-2 mt-6">
+                {steps.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveStep(idx)}
+                    className={`transition-all duration-300 rounded-full ${
+                      activeStep === idx
+                        ? 'w-8 h-2 bg-gradient-to-r from-[#00D9FF] to-[#00D4AA]'
+                        : 'w-2 h-2 bg-white/20 hover:bg-white/40'
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
-          ))}
+          </div>
         </div>
 
         {/* CTA */}
-        <div className="flex justify-center mt-10 md:mt-12">
-          <Button variant="glow" className="text-base md:text-lg px-8 md:px-10 py-3 md:py-4">
-            Get Started Now <ArrowRight size={20} />
+        <div className="flex justify-center mt-12 md:mt-16">
+          <Button variant="glow" className="text-lg px-10 py-4">
+            Start Trading Now <ArrowRight size={20} />
           </Button>
         </div>
       </div>
