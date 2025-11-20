@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import {
   TrendingUp,
   Shield,
@@ -642,132 +643,89 @@ const HowItWorks = () => {
   const steps = [
     {
       number: "01",
-      icon: Link,
-      title: "Connect Exchange",
-      desc: "Securely link your OKX account with OAuth. No manual API keys needed.",
-      image: "/images/IMG_9761.PNG",
-      color: "from-[#00D9FF] to-[#00B8D9]"
+      title: "Open OKX App",
+      desc: "Download and launch the OKX mobile app on your device.",
+      image: "/images/okx-app.png"
     },
     {
       number: "02",
-      icon: Activity,
-      title: "Choose Strategy",
-      desc: "Browse AI strategies and select one that matches your risk profile.",
-      image: "/images/IMG_9762.PNG",
-      color: "from-[#00D4AA] to-[#00B898]"
+      title: "Select Strategy",
+      desc: "Browse the strategy marketplace and choose one that fits your risk appetite.",
+      image: "/images/IMG_9761.PNG"
     },
     {
       number: "03",
-      icon: Zap,
-      title: "Start Trading",
-      desc: "Allocate funds and let AI execute trades automatically 24/7.",
-      image: "/images/IMG_9763.PNG",
-      color: "from-[#00D9FF] to-[#00D4AA]"
+      title: "Subscribe",
+      desc: "Tap subscribe, allocate your funds, and start automated trading instantly.",
+      image: "/images/IMG_9762.PNG"
     }
   ];
 
   return (
-    <section id="how-it-works" className="py-16 md:py-24 bg-[#0D1220] relative overflow-hidden">
-      {/* Background decorative elements */}
+    <section id="how-it-works" className="py-12 md:py-20 bg-[#0D1220] relative overflow-hidden">
+      {/* Background */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(0,217,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,217,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#00D9FF]/5 rounded-full blur-[120px]"></div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="text-center mb-12 md:mb-16">
+        <div className="text-center mb-10 md:mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight">
             Start in 3 Minutes
           </h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-[#00D9FF] to-[#00D4AA] mb-6 mx-auto"></div>
-          <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            No coding required. Just connect, choose, and automate your trading journey.
+          <div className="h-1 w-20 bg-gradient-to-r from-[#00D9FF] to-[#00D4AA] mb-4 mx-auto"></div>
+          <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto">
+            Three simple steps to automated trading. No coding required.
           </p>
         </div>
 
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-6 md:gap-8">
           {steps.map((step, idx) => (
-            <div
-              key={idx}
-              className={`flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-12 items-center mb-16 md:mb-24 last:mb-0`}
-            >
-              {/* Content Side */}
-              <div className="flex-1 space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center shadow-lg shadow-[#00D9FF]/20`}>
-                    <step.icon size={28} className="text-white" />
+            <div key={idx} className="relative group">
+              {/* Card */}
+              <div className="bg-[#131826] rounded-2xl border border-white/10 overflow-hidden hover:border-[#00D9FF]/30 transition-all duration-300 h-full">
+                {/* Phone Screenshot */}
+                <div className="relative aspect-[9/19.5] bg-black overflow-hidden">
+                  {/* Actual Screenshot */}
+                  <div className="w-full h-full relative">
+                    <Image
+                      src={step.image}
+                      alt={step.title}
+                      fill
+                      className="object-cover object-top"
+                      unoptimized
+                    />
                   </div>
-                  <div className={`text-6xl md:text-7xl font-bold bg-gradient-to-br ${step.color} bg-clip-text text-transparent opacity-30`}>
+
+                  {/* Step badge */}
+                  <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-gradient-to-br from-[#00D9FF] to-[#00D4AA] flex items-center justify-center text-white font-bold text-sm shadow-lg">
                     {step.number}
                   </div>
                 </div>
 
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">
                     {step.title}
                   </h3>
-                  <p className="text-gray-400 text-base md:text-lg leading-relaxed">
+                  <p className="text-gray-400 text-sm leading-relaxed">
                     {step.desc}
                   </p>
                 </div>
-
-                {/* Progress indicator */}
-                {idx < steps.length - 1 && (
-                  <div className="hidden md:flex items-center gap-3 pt-4">
-                    <div className="flex-1 h-0.5 bg-gradient-to-r from-[#00D9FF]/50 to-transparent"></div>
-                    <ArrowRight size={20} className="text-[#00D9FF]/50" />
-                  </div>
-                )}
               </div>
 
-              {/* Mobile Screenshot Side */}
-              <div className="flex-1 flex justify-center">
-                <div className="relative group">
-                  {/* Phone frame */}
-                  <div className="relative w-[280px] md:w-[320px] aspect-[9/19.5] bg-gradient-to-br from-[#1A1F2E] to-[#0D1117] rounded-[3rem] p-3 shadow-2xl border border-white/10">
-                    {/* Screen */}
-                    <div className="w-full h-full bg-[#000000] rounded-[2.5rem] overflow-hidden relative">
-                      {/* Notch */}
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-7 bg-black rounded-b-3xl z-10"></div>
-
-                      {/* Screenshot placeholder - Replace with actual images */}
-                      <div className="w-full h-full bg-gradient-to-br from-[#0D1220] via-[#131826] to-[#0A0E1A] flex items-center justify-center relative overflow-hidden">
-                        {/* Placeholder content */}
-                        <div className="text-center p-6 space-y-4">
-                          <div className={`w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center mb-4 animate-pulse`}>
-                            <step.icon size={36} className="text-white" />
-                          </div>
-                          <div className="space-y-2">
-                            <div className="h-3 bg-white/10 rounded w-3/4 mx-auto"></div>
-                            <div className="h-3 bg-white/10 rounded w-full"></div>
-                            <div className="h-3 bg-white/10 rounded w-2/3 mx-auto"></div>
-                          </div>
-                          <div className={`mt-6 px-6 py-3 rounded-lg bg-gradient-to-r ${step.color} text-white font-semibold text-sm`}>
-                            {step.title}
-                          </div>
-                        </div>
-
-                        {/* Glow effect */}
-                        <div className={`absolute inset-0 bg-gradient-to-t ${step.color} opacity-5`}></div>
-                      </div>
-                    </div>
-
-                    {/* Phone highlights */}
-                    <div className="absolute -top-1 -right-1 w-12 h-12 bg-white/5 rounded-full blur-xl"></div>
-                  </div>
-
-                  {/* Floating badge */}
-                  <div className={`absolute -top-4 -right-4 px-4 py-2 rounded-full bg-gradient-to-r ${step.color} text-white text-xs font-bold shadow-lg`}>
-                    Step {step.number}
-                  </div>
+              {/* Connector arrow (desktop only) */}
+              {idx < steps.length - 1 && (
+                <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                  <ArrowRight size={24} className="text-[#00D9FF]" />
                 </div>
-              </div>
+              )}
             </div>
           ))}
         </div>
 
         {/* CTA */}
-        <div className="flex justify-center mt-12 md:mt-16">
-          <Button variant="glow" className="text-base md:text-lg px-8 md:px-12 py-4">
-            Start Trading Now <ArrowRight size={20} />
+        <div className="flex justify-center mt-10 md:mt-12">
+          <Button variant="glow" className="text-base md:text-lg px-8 md:px-10 py-3 md:py-4">
+            Get Started Now <ArrowRight size={20} />
           </Button>
         </div>
       </div>
