@@ -355,57 +355,88 @@ const Hero = () => {
 
 const Strategies = () => {
   return (
-    <section id="strategies" className="py-24 bg-[#0A0E1A]">
-      <div className="container mx-auto px-6">
-        <SectionTitle
-          title="Intelligent Strategies"
-          subtitle="Choose the AI model that fits your risk appetite. Each strategy utilizes distinct data sets and execution parameters."
-        />
+    <section id="strategies" className="py-12 md:py-24 bg-[#0A0E1A] relative overflow-hidden">
+      {/* Subtle background element */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#00D9FF]/5 rounded-full blur-[120px] pointer-events-none"></div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {STRATEGIES.map((strat) => (
-            <div key={strat.id} className="group relative bg-[#131826] rounded-2xl border border-white/5 p-8 hover:border-[#00D9FF]/30 transition-all duration-300 hover:-translate-y-2">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#00D9FF] to-[#00D4AA] opacity-0 group-hover:opacity-100 transition-opacity rounded-t-2xl"></div>
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight">
+            Intelligent Strategies
+          </h2>
+          <div className="h-1 w-20 bg-gradient-to-r from-[#00D9FF] to-[#00D4AA] mb-6 mx-auto"></div>
+          <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+            Choose the AI model that fits your risk appetite. Each strategy utilizes distinct data sets and execution parameters.
+          </p>
+        </div>
 
-              <div className="flex justify-between items-start mb-6">
-                <div className="bg-white/5 p-3 rounded-lg text-[#00D9FF]">
-                  {strat.id === 1 ? <Zap size={24} /> : strat.id === 2 ? <Shield size={24} /> : <TrendingUp size={24} />}
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
+          {STRATEGIES.map((strat, idx) => (
+            <div
+              key={strat.id}
+              className="group relative bg-gradient-to-b from-[#131826] to-[#0D1219] rounded-2xl border border-white/10 overflow-hidden hover:border-[#00D9FF]/40 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00D9FF]/10"
+              style={{ animationDelay: `${idx * 100}ms` }}
+            >
+              {/* Top accent bar */}
+              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#00D9FF] to-[#00D4AA] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+
+              {/* Card content */}
+              <div className="p-6 md:p-8">
+                {/* Header */}
+                <div className="flex items-start justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00D9FF]/20 to-[#00D4AA]/20 border border-[#00D9FF]/30 flex items-center justify-center text-[#00D9FF] group-hover:scale-110 transition-transform duration-300">
+                      {strat.id === 1 ? <Zap size={20} /> : strat.id === 2 ? <Shield size={20} /> : <TrendingUp size={20} />}
+                    </div>
+                  </div>
+                  <span className={`text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider ${
+                    strat.risk === 'High' ? 'bg-orange-500/10 text-orange-400 border border-orange-500/20' :
+                    strat.risk === 'Low' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                    'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                  }`}>
+                    {strat.risk} Risk
+                  </span>
                 </div>
-                <span className={`text-xs font-semibold px-3 py-1 rounded-full ${
-                  strat.risk === 'High' ? 'bg-red-500/10 text-red-400' :
-                  strat.risk === 'Low' ? 'bg-green-500/10 text-green-400' :
-                  'bg-yellow-500/10 text-yellow-400'
-                }`}>
-                  {strat.risk} Risk
-                </span>
+
+                {/* Title & Description */}
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-[#00D9FF] transition-colors duration-300">
+                  {strat.name}
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed mb-6 min-h-[60px]">
+                  {strat.description}
+                </p>
+
+                {/* Metrics Grid */}
+                <div className="grid grid-cols-2 gap-3 mb-6 pb-6 border-b border-white/5">
+                  <div className="space-y-1">
+                    <div className="text-xs text-gray-500 uppercase tracking-wider font-medium">Est. APY</div>
+                    <div className="text-2xl font-bold bg-gradient-to-r from-[#00D9FF] to-[#00D4AA] bg-clip-text text-transparent">
+                      {strat.apy}%
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="text-xs text-gray-500 uppercase tracking-wider font-medium">Win Rate</div>
+                    <div className="text-2xl font-bold text-white">{strat.winRate}%</div>
+                  </div>
+                </div>
+
+                {/* Details */}
+                <div className="space-y-2.5 mb-6">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-gray-500">Min. Investment</span>
+                    <span className="text-white font-semibold">${strat.minInv}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-gray-500">Assets</span>
+                    <span className="text-white font-semibold">{strat.assets.join(', ')}</span>
+                  </div>
+                </div>
+
+                {/* CTA Button */}
+                <button className="w-full py-3 rounded-lg font-semibold transition-all duration-300 border-2 border-[#00D9FF]/30 text-[#00D9FF] hover:bg-[#00D9FF] hover:text-[#0A0E1A] hover:border-[#00D9FF] hover:shadow-lg hover:shadow-[#00D9FF]/20">
+                  Subscribe
+                </button>
               </div>
-
-              <h3 className="text-2xl font-bold text-white mb-2">{strat.name}</h3>
-              <p className="text-gray-400 text-sm mb-6 min-h-[60px]">{strat.description}</p>
-
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                <div className="bg-black/20 p-3 rounded text-center">
-                  <div className="text-2xl font-bold text-[#00D4AA]">{strat.apy}%</div>
-                  <div className="text-xs text-gray-500">Est. APY</div>
-                </div>
-                <div className="bg-black/20 p-3 rounded text-center">
-                  <div className="text-2xl font-bold text-white">{strat.winRate}%</div>
-                  <div className="text-xs text-gray-500">Win Rate</div>
-                </div>
-              </div>
-
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center gap-2 text-sm text-gray-300">
-                  <CheckCircle size={14} className="text-[#00D9FF]" /> Min. Invest: ${strat.minInv}
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-300">
-                  <CheckCircle size={14} className="text-[#00D9FF]" /> Assets: {strat.assets.join(', ')}
-                </li>
-              </ul>
-
-              <Button variant="outline" className="w-full group-hover:bg-[#00D9FF] group-hover:text-[#0A0E1A]">
-                Subscribe
-              </Button>
             </div>
           ))}
         </div>
@@ -493,50 +524,112 @@ const AIProcess = () => {
 
 const Performance = () => {
   return (
-    <section id="performance" className="py-24 bg-[#0A0E1A]">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">Live Performance</h2>
-            <p className="text-gray-400">Real-time tracking of all active AI strategies.</p>
-          </div>
-          <div className="flex items-center gap-2 text-[#00D4AA] text-sm mt-4 md:mt-0">
-            <span className="w-2 h-2 bg-[#00D4AA] rounded-full animate-pulse"></span>
-            System Operational
-          </div>
+    <section id="performance" className="py-12 md:py-24 bg-[#0D1220] relative overflow-hidden">
+      {/* Background grid pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(0,217,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,217,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
+
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
+        <div className="mb-8 md:mb-12">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight">Live Performance</h2>
+          <div className="h-1 w-16 md:w-20 bg-gradient-to-r from-[#00D9FF] to-[#00D4AA] mb-4"></div>
+          <p className="text-gray-400 text-base md:text-lg">Real-time tracking of all active AI strategies.</p>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="text-gray-500 text-sm border-b border-white/10">
-                <th className="p-4 font-medium">Strategy Name</th>
-                <th className="p-4 font-medium">Asset</th>
-                <th className="p-4 font-medium">24h Change</th>
-                <th className="p-4 font-medium">7d APY</th>
-                <th className="p-4 font-medium">Total Profit</th>
-                <th className="p-4 font-medium">Status</th>
-              </tr>
-            </thead>
-            <tbody className="text-white">
-              {[
-                { name: "Alpha Predator", asset: "BTC/USDT", chg: "+2.4%", apy: "142%", profit: "+$12,404", status: "Active" },
-                { name: "Alpha Predator", asset: "ETH/USDT", chg: "-0.8%", apy: "98%", profit: "+$8,291", status: "Active" },
-                { name: "Delta Neutral", asset: "SOL/USDT", chg: "+0.2%", apy: "24%", profit: "+$1,102", status: "Active" },
-                { name: "Trend Surfer", asset: "DOGE/USDT", chg: "+15.4%", apy: "310%", profit: "+$5,400", status: "Active" },
-                { name: "Trend Surfer", asset: "ARB/USDT", chg: "+1.2%", apy: "45%", profit: "+$920", status: "Active" },
-              ].map((row, idx) => (
-                <tr key={idx} className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                  <td className="p-4 font-semibold">{row.name}</td>
-                  <td className="p-4 text-gray-400">{row.asset}</td>
-                  <td className={`p-4 ${row.chg.startsWith('+') ? 'text-[#00D4AA]' : 'text-red-400'}`}>{row.chg}</td>
-                  <td className="p-4 text-[#00D9FF]">{row.apy}</td>
-                  <td className="p-4">{row.profit}</td>
-                  <td className="p-4"><span className="px-2 py-1 rounded bg-[#00D4AA]/10 text-[#00D4AA] text-xs">{row.status}</span></td>
+        {/* Table Container with border */}
+        <div className="bg-[#131826] rounded-xl md:rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
+          {/* Horizontal scroll container with scroll hint */}
+          <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-[#00D9FF]/20 scrollbar-track-transparent">
+            <table className="w-full border-collapse min-w-[900px]">
+              <thead>
+                <tr className="text-gray-500 text-xs uppercase tracking-wider border-b-2 border-[#00D9FF]/20 bg-gradient-to-b from-black/30 to-black/10">
+                  <th className="px-4 md:px-6 py-4 md:py-5 text-left font-bold whitespace-nowrap">Strategy</th>
+                  <th className="px-4 md:px-6 py-4 md:py-5 text-center font-bold whitespace-nowrap">AI Model</th>
+                  <th className="px-4 md:px-6 py-4 md:py-5 text-center font-bold whitespace-nowrap">Return (30D)</th>
+                  <th className="px-4 md:px-6 py-4 md:py-5 text-center font-bold whitespace-nowrap">Sharpe Ratio</th>
+                  <th className="px-4 md:px-6 py-4 md:py-5 text-center font-bold whitespace-nowrap">Max Drawdown</th>
+                  <th className="px-4 md:px-6 py-4 md:py-5 text-center font-bold whitespace-nowrap">Win Rate</th>
+                  <th className="px-4 md:px-6 py-4 md:py-5 text-center font-bold whitespace-nowrap">Total Trades</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="text-white divide-y divide-white/5">
+                {[
+                  {
+                    name: "Alpha Momentum",
+                    model: "ChatGPT-4",
+                    return: "+156.7%",
+                    sharpe: "2.84",
+                    drawdown: "-12.3%",
+                    winRate: "87%",
+                    trades: "3,247",
+                    active: true
+                  },
+                  {
+                    name: "Steady Growth",
+                    model: "Claude 3.5",
+                    return: "+68.4%",
+                    sharpe: "3.12",
+                    drawdown: "-5.8%",
+                    winRate: "91%",
+                    trades: "1,842",
+                    active: true
+                  },
+                  {
+                    name: "Volatility Edge",
+                    model: "Grok-2",
+                    return: "+124.5%",
+                    sharpe: "2.67",
+                    drawdown: "-9.4%",
+                    winRate: "85%",
+                    trades: "4,521",
+                    active: true
+                  },
+                ].map((row, idx) => (
+                  <tr key={idx} className="group hover:bg-gradient-to-r hover:from-[#00D9FF]/5 hover:via-[#00D9FF]/3 hover:to-transparent transition-all duration-300 cursor-pointer">
+                    <td className="px-4 md:px-6 py-5 md:py-6 text-left">
+                      <div className="flex items-center gap-3">
+                        <div className="hidden md:flex w-1 h-10 bg-gradient-to-b from-[#00D9FF] to-[#00D4AA] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div>
+                          <span className="font-bold text-sm md:text-base text-white whitespace-nowrap block">{row.name}</span>
+                          <div className="flex items-center gap-1.5 mt-1">
+                            <span className="w-1.5 h-1.5 bg-[#00D4AA] rounded-full animate-pulse"></span>
+                            <span className="text-[10px] md:text-xs text-gray-500 uppercase tracking-wider">Active</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-4 md:px-6 py-5 md:py-6 text-center">
+                      <span className="inline-block px-2.5 md:px-3 py-1.5 md:py-2 rounded-full bg-[#00D9FF]/10 text-[#00D9FF] text-xs md:text-sm border border-[#00D9FF]/30 font-semibold whitespace-nowrap hover:bg-[#00D9FF]/20 hover:border-[#00D9FF]/50 transition-all duration-200">
+                        {row.model}
+                      </span>
+                    </td>
+                    <td className="px-4 md:px-6 py-5 md:py-6 text-center">
+                      <span className={`font-bold text-base md:text-lg whitespace-nowrap ${row.return.startsWith('+') ? 'text-[#00D4AA]' : 'text-red-400'}`}>
+                        {row.return}
+                      </span>
+                    </td>
+                    <td className="px-4 md:px-6 py-5 md:py-6 text-center">
+                      <span className="font-semibold text-sm md:text-base text-white">{row.sharpe}</span>
+                    </td>
+                    <td className="px-4 md:px-6 py-5 md:py-6 text-center">
+                      <span className="font-semibold text-sm md:text-base text-gray-300">{row.drawdown}</span>
+                    </td>
+                    <td className="px-4 md:px-6 py-5 md:py-6 text-center">
+                      <span className="font-semibold text-sm md:text-base text-[#00D9FF]">{row.winRate}</span>
+                    </td>
+                    <td className="px-4 md:px-6 py-5 md:py-6 text-center">
+                      <span className="font-medium text-sm md:text-base text-gray-300">{row.trades}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile scroll hint */}
+          <div className="md:hidden flex items-center justify-center gap-2 py-3 text-xs text-gray-500 border-t border-white/5">
+            <span>Swipe to see more</span>
+            <ArrowRight size={12} className="animate-pulse" />
+          </div>
         </div>
       </div>
     </section>
@@ -566,6 +659,12 @@ const HowItWorks = () => {
               </p>
             </div>
           ))}
+        </div>
+
+        <div className="flex justify-center mt-12">
+          <Button variant="glow" className="text-lg px-8 py-4">
+            Subscribe Now <ArrowRight size={20} />
+          </Button>
         </div>
       </div>
     </section>
@@ -655,8 +754,8 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <Performance />
         <Strategies />
+        <Performance />
         <AIProcess />
         <HowItWorks />
         <FAQ />
